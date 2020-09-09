@@ -11,6 +11,9 @@ p {
 	height: 25pt;
 	text-align: center;
 	font-family: 'Courier Prime', monospace;
+	background-color: #004427;
+	color: #C0D6CD;
+	border-color: #509C7B;
 }
 label {
 	font-family: 'Open Sans', sans-serif;
