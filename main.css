@@ -1,6 +1,27 @@
-.font-test {
-	font-family: 'Courier Prime', monospace;
-}
 p {
 	font-family: 'Open Sans', sans-serif;
+}
+.special-chars {
+	display: flex;
+	flex-wrap: wrap;
+}
+.special-chars > button {
+	font-size: 16pt;
+	width: 25pt;
+	height: 25pt;
+	text-align: center;
+	font-family: 'Courier Prime', monospace;
+}
+label {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 18pt;
+}
+input[type=text] {
+	font-family: 'Courier Prime', monospace;
+	font-size: 20pt;
+	width: 100%;
+	background-color: #509C7B;
+	border: 1pt solid #00110A;
+	border-radius: 5pt;	
+	color: #00110A;
 }
