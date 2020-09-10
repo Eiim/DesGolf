@@ -1,11 +1,11 @@
 p {
 	font-family: 'Open Sans', sans-serif;
 }
-.special-chars {
+#special-chars {
 	display: flex;
 	flex-wrap: wrap;
 }
-.special-chars > button {
+#special-chars > button {
 	font-size: 16pt;
 	width: 25pt;
 	height: 25pt;
@@ -27,4 +27,14 @@ input[type=text] {
 	border: 1pt solid #00110A;
 	border-radius: 5pt;	
 	color: #00110A;
+	height: 26pt;
+	padding-top: 3pt;
+	padding-left: 2pt;
+	padding-right: 2pt;
+}
+::selection {
+	background: #C0D6CD
+}
+::-moz-selection {
+	background: #C0D6CD
 }
