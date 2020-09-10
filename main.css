@@ -22,7 +22,7 @@ label {
 input[type=text] {
 	font-family: 'Courier Prime', monospace;
 	font-size: 20pt;
-	width: 100%;
+	width: calc(100% - 4.4px);
 	background-color: #509C7B;
 	border: 1pt solid #00110A;
 	border-radius: 5pt;	
