@@ -15,6 +15,24 @@ p {
 	color: #C0D6CD;
 	border-color: #509C7B;
 }
+#controls {
+	width: 64pt;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	right: -10px;
+	position: relative;
+}
+#controls > button {
+	background-color: #1A714C;
+	border: 1pt solid #509C7B;
+	height: 50%;
+	padding-top: 6pt;
+	position: relative;
+	padding-bottom: 6pt;
+	font-size: 32pt;
+	font-family: 'Courier Prime', monospace;
+}
 label {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 18pt;
@@ -22,7 +40,7 @@ label {
 input[type=text] {
 	font-family: 'Courier Prime', monospace;
 	font-size: 20pt;
-	width: calc(100% - 4.4px);
+	width: calc(100% - 4.4px - 4pt);
 	background-color: #509C7B;
 	border: 1pt solid #00110A;
 	border-radius: 5pt;	
