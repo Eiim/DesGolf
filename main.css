@@ -23,10 +23,14 @@ p {
 	right: -10px;
 	position: relative;
 }
-#controls > button {
+#controls > span {
+	height: 50%;
+}
+#controls > span > button {
 	background-color: #1A714C;
 	border: 1pt solid #509C7B;
-	height: 50%;
+	width: 100%;
+	height: 100%;
 	padding-top: 6pt;
 	position: relative;
 	padding-bottom: 6pt;
