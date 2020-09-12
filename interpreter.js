@@ -9,12 +9,15 @@ document.addEventListener("DOMContentLoaded", function() {
 		var code = document.getElementById("code").value;
 		var tree = parseCode(code);
 		var out = parseTree(tree);
-		document.getElementById("output").value = out;
+		if(out[0] instanceof Decimal) {
+			out[0] = out[0].toFixed();
+		}
+		document.getElementById("output").value = out[0];
 	});
 });
 
 function parseCode(code) {
-	var parseTree = [];
+	var tree = [];
 	for (var charPos = 0, c=''; c = code.charAt(charPos); charPos++) { 
 		if(['1','2','3','4','5','6','7','8','9','0','.'].includes(c)) {
 			var decimalEncountered = c=='.';
@@ -30,17 +33,40 @@ function parseCode(code) {
 					break;
 				}
 			}
-			parseTree.push(new Decimal(c));
+			tree.push(new Decimal(c));
+		} else if(['+','-','*','/'].includes(c)) {
+			tree.push(c);
 		}
 	}
-	return parseTree;
+	return tree;
 }
 
 function parseTree(tree) {
-	var out = "";
-	tree.forEach(d => {
-		console.log(d.toFixed());
-		out += d.toFixed();
-	});
-	return out;
+	for(var i = 0; i < tree.length; ++i) {
+		var op = tree[i]
+		if(typeof(op) == "string" && ['+','-','*','/'].includes(op)) {
+			if(i>0 && i+1<tree.length && tree[i-1] instanceof Decimal && tree[i+1] instanceof Decimal) {
+				switch(op) {
+					case '+':
+						tree.splice(i-1, 3, tree[i-1].add(tree[i+1]));break;
+					case '-':
+						tree.splice(i-1, 3, tree[i-1].minus(tree[i+1]));break;
+					case '*':
+						tree.splice(i-1, 3, tree[i-1].times(tree[i+1]));break;
+					case '/':
+						tree.splice(i-1, 3, tree[i-1].div(tree[i+1]));break;
+				}
+				--i;
+			}
+		} else if(op instanceof Array) {
+			parseTree(op);
+		}
+	}
+	return tree;
+}
+
+document.onkeydown = function(e) {
+	if(e.key == "Enter" && e.ctrlKey) {
+		document.getElementById("run").click();
+	}
 }
