@@ -43,14 +43,16 @@ function parseCode(code) {
 
 function parseTree(tree) {
 	for(var i = 0; i < tree.length; ++i) {
-		var op = tree[i]
-		if(typeof(op) == "string" && ['+','-','*','/'].includes(op)) {
+		var op = tree[i];
+		if(op instanceof Array) {
+			parseTree(op);
+		}
+	}
+	for(var i = 0; i < tree.length; ++i) {
+		var op = tree[i];
+		if(typeof(op) == "string" && ['*','/'].includes(op)) {
 			if(i>0 && i+1<tree.length && tree[i-1] instanceof Decimal && tree[i+1] instanceof Decimal) {
 				switch(op) {
-					case '+':
-						tree.splice(i-1, 3, tree[i-1].add(tree[i+1]));break;
-					case '-':
-						tree.splice(i-1, 3, tree[i-1].minus(tree[i+1]));break;
 					case '*':
 						tree.splice(i-1, 3, tree[i-1].times(tree[i+1]));break;
 					case '/':
@@ -58,8 +60,20 @@ function parseTree(tree) {
 				}
 				--i;
 			}
-		} else if(op instanceof Array) {
-			parseTree(op);
+		}
+	}
+	for(var i = 0; i < tree.length; ++i) {
+		var op = tree[i];
+		if(typeof(op) == "string" && ['+','-'].includes(op)) {
+			if(i>0 && i+1<tree.length && tree[i-1] instanceof Decimal && tree[i+1] instanceof Decimal) {
+				switch(op) {
+					case '+':
+						tree.splice(i-1, 3, tree[i-1].add(tree[i+1]));break;
+					case '-':
+						tree.splice(i-1, 3, tree[i-1].minus(tree[i+1]));break;
+				}
+				--i;
+			}
 		}
 	}
 	return tree;
