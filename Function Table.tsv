@@ -1,0 +1,100 @@
+Function	Arity	Desmos	DesGolf (ISO 8859-15)
+Sine	1	sin()	s
+Cosine	1	cos()	c
+Tangent	1	tan()	t
+Cosecant	1	csc()	à
+Secant	1	sec()	á
+Cotangent	1	cot()	â
+Inverse Sine	1	arcsin()	È
+Inverse Cosine	1	arccos()	É
+Inverse Tangent	1	arctan()	Ê
+Inverse Cosecant	1	arccsc()	À
+Inverse Secant	1	arcsec()	Á
+Inverse Cotangent	1	arccot()	Â
+Hyperbolic Sine	1	sinh()	è
+Hyperbolic Cosine	1	cosh()	é
+Hyperbolic Tangent	1	tanh()	ê
+Hyperbolic Cosecant	1	csch()	ã
+Hyperbolic Secant	1	sech()	ä
+Hyperbolic Cotangent	1	coth()	å
+Total	1	total(x_1)	v
+Minimum	1	min(x_1)	_
+Maximum	1	max(x_1)	¯
+Number of Elements	1	length(x_1)	#
+Average	1	mean(x_1)	a
+Median	1	median(x_1)	b
+Quantile	2	quantile(x_1,p)	¥
+Standard Deviation	1	stdev(x_1)	`
+Standard Deviation Population	1	stdevp(x_1)	·
+Mean Absolute Deviation	1	mad(x_1)	¢
+Variance	1	var(x_1)	€
+Covariance	1	cov(x_1)	£
+Correlation Coefficient	2	corr(x_1,x_2)	r
+Number of Combinations	2	nCr(n,r)	y
+Number of Permutations	2	nPr(n,r)	z
+Factorial	1	n!	!
+Join lists	2	join(x_1, x_2)	;
+Sort	1	sort(x_1)	w
+Shuffle	1	shuffle(x_1)	¡
+Least Common Multiple	2	lcm()	×
+Greatest Common Divisor	2	gcd()	÷
+Modular	2	mod()	%
+Floor	1	floor()	i
+Floor to n	2	floor()	k
+Ceiling	1	ceil()	o
+Ceiling to n	2	ceil()	l
+Round to Integer	1	round()	u
+Round to n	2	round()	j
+Absolute Value	1	abs()	ª
+Sign	1	sign()	?
+n-th Root	2	nthroot	n
+Square root	1	sqrt	q
+Exponential	1	exp()	f
+Natural Log	1	ln()	h
+Log base 10	1	log()	m
+Log base a	2	log_a()	@
+Derivative with respect to x	1	d/dx	d
+Is prime?	1		p
+Relatively prime	2		r
+Prime (derivative)	1	'	
+Integral	3	int	g
+Summation	3	sum	&
+Product	3	prod	x
+Next argument			|
+Plus	2-side	+	+
+Minus	2-side	-	-
+Times	2-side	*	*
+Divide	2-side	/	/
+Power	2-side	^	^
+Input/variables			ABCDEFGHIJKLMNOPQRSTUVWXYZ
+Numeric literal		0123456789.	0123456789.
+Parens		()	()
+Array		[]	[]
+Restriction		{}	{}
+Array/restriction seperator	2-side	,	|
+Interpolare	2-side	...	~
+Comparison	2-side	<>=	<>=
+String			"
+Char	1-side		'
+Becomes	2-side	:	|
+To boolean (1/0)	1		±
+Radians mode (default)	0		®
+Degrees mode	0		°
+Print as string	1		¶
+Rotate array left	1		«
+Rotate array right	1		»
+Pi		\pi	þ
+e		e	e
+Tau		2*\pi	Þ
+Debug			¿
+Distance from array	1		ð
+Close function		)	\
+Close 2		))	ù
+Close 3		)))	ú
+Close 4		))))	û
+Close 5		)))))	ü
+Close function, next argument		),	$
+Close 2, next		)),	Ù
+Close 3, next		))),	Ú
+Close 4, next		)))),	Û
+Close 5, next		))))),	Ü
