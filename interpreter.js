@@ -34,7 +34,7 @@ function parseCode(code) {
 				}
 			}
 			tree.push(new Decimal(c));
-		} else if(['+','-','*','/'].includes(c)) {
+		} else if(['+','-','*','/',"^"].includes(c)) {
 			tree.push(c);
 		}
 	}
@@ -46,6 +46,15 @@ function parseTree(tree) {
 		var op = tree[i];
 		if(op instanceof Array) {
 			parseTree(op);
+		}
+	}
+	for(var i = 0; i < tree.length; ++i) {
+		var op = tree[i];
+		if(typeof(op) == "string" && op == "^") {
+			if(i>0 && i+1<tree.length && tree[i-1] instanceof Decimal && tree[i+1] instanceof Decimal) {
+				tree.splice(i-1, 3, tree[i-1].pow(tree[i+1]));
+				--i;
+			}
 		}
 	}
 	for(var i = 0; i < tree.length; ++i) {
