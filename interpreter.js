@@ -120,7 +120,7 @@ document.onkeydown = function(e) {
 }
 
 function simplifyTree(tree) {
-	treen = tree.slice();
+	var treen = tree.slice();
 	for(var i = 0; i < treen.length; i++) {
 		console.log(i+": "+treen[i]+" / "+treen);
 		if(treen[i] instanceof Array) {
