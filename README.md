@@ -14,6 +14,7 @@ Features:
 ✔ 4-function calculations respecting order of operations  
 🕛 Full PEMDAS  
 ❌ Function support  
+❌ Implicit multiplication  
 ❌ Extended trigonometric functions  
 ❌ Radians/degrees mode  
 ❌ Math constants  
