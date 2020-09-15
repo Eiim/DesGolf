@@ -60,7 +60,7 @@ Prime (derivative)	1	'
 Integral	3	int	g
 Summation	3	sum	&
 Product	3	prod	x
-Next argument			|
+Next argument		,	|
 Plus	2-side	+	+
 Minus	2-side	-	-
 Times	2-side	*	*
@@ -71,7 +71,7 @@ Numeric literal		0123456789.	0123456789.
 Parens		()	()
 Array		[]	[]
 Restriction		{}	{}
-Array/restriction seperator	2-side	,	|
+Array/restriction seperator	2-side	,	,
 Interpolare	2-side	...	~
 Comparison	2-side	<>=	<>=
 String			"
