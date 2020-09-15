@@ -65,6 +65,8 @@ function parseCode(code) {
 			// c ends up holding our whole number
 			tree.push(new Decimal(c));
 		// Only push recognized functions
+		} else if(['q'].includes(c)) {
+			tree.push(c);
 		} else if(['+','-','*','/',"^"].includes(c)) {
 			tree.push(c);
 		}
@@ -73,7 +75,7 @@ function parseCode(code) {
 }
 
 function parseTree(tree) {
-	// Order of operations: parenthesis (sub-arrays) are evaluated first
+	// Order of operations: parenthesis and function arguments (sub-arrays) are evaluated first
 	for(var i = 0; i < tree.length; ++i) {
 		var op = tree[i];
 		if(op instanceof Array) {
@@ -81,6 +83,14 @@ function parseTree(tree) {
 		}
 	}
 	// Functions will be checked here
+	for(var i = 0; i < tree.length; ++i) {
+		var op = tree[i];
+		if(typeof(op) == "string" && op == "q") {
+			if(i+1<tree.length && tree[i+1] instanceof Decimal) {
+				tree.splice(i, 2, tree[i+1].sqrt());
+			}
+		}
+	}
 	// Exponent checker
 	for(var i = 0; i < tree.length; ++i) {
 		var op = tree[i];

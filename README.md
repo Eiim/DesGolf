@@ -12,8 +12,8 @@ Features:
 
 ✔ Arbitrary precision numbers via Decimal.js  
 ✔ 4-function calculations respecting order of operations  
-🕛 Full PEMDAS  
-❌ Function support  
+✔ Full PEMDAS  
+🕛 Function support  
 ❌ Implicit multiplication  
 ❌ Extended trigonometric functions  
 ❌ Radians/degrees mode  
