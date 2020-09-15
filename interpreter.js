@@ -1,25 +1,29 @@
 document.addEventListener("DOMContentLoaded", function() {
+	// Add special character button functionality
 	document.getElementById("special-chars").childNodes.forEach(e => {
 		e.addEventListener("click", function(){
 			var c = document.getElementById("code");
 			c.value = c.value+e.textContent;
 		});
 	});
+	// Add run button functionality
 	document.getElementById("run").addEventListener("click", function() {
 		var code = document.getElementById("code").value;
+		// Turn raw text into an array-based data structure
 		var tree = parseCode(code);
+		// Parse data structure
 		var out = parseTree(tree);
-		if(out[0] instanceof Decimal) {
-			out[0] = out[0].toFixed();
-		}
-		document.getElementById("output").value = out[0];
+		// Should normally just be one Decimal object, but run simplifyTree just in case.
+		document.getElementById("output").value = simplifyTree(out);
 	});
 });
 
 function parseCode(code) {
 	var tree = [];
+	// Interate over each character in code
 	for (var charPos = 0, c=''; c = code.charAt(charPos); charPos++) { 
 		if(c == "(") {
+			// Parse over code until we find the close for this paren
 			var depth = 1;
 			for(var cp2 = charPos+1, c2 = ''; c2=code.charAt(cp2); cp2++) {
 				if(c2 == "(") {
@@ -27,18 +31,24 @@ function parseCode(code) {
 				} else if(c2 == ")") {
 					--depth;
 					if(depth == 0) {
+						// Once we've found the matching close paren, parse the inner region and push it
 						tree.push(parseCode(code.substring(charPos+1, cp2)));
+						// Skip to end of block
 						charPos = cp2;
+						// Mark our depth as -1 to make sure we can see if we got here later
 						--depth;
 						break;
 					}
 				}
 			}
 			if(depth > -1) {
+				// If we didn't find a close paren, close at the end anyways
 				tree.push(parseCode(code.substring(charPos+1)));
 				charPos = code.length;
 			}
+		// Numberic literals
 		} else if(['1','2','3','4','5','6','7','8','9','0','.'].includes(c)) {
+			// Note we can only encounter one decimal point
 			var decimalEncountered = c=='.';
 			for(var i = charPos+1, cnew = ''; cnew = code.charAt(i); i++) {
 				if(['1','2','3','4','5','6','7','8','9','0'].includes(cnew)) {
@@ -52,7 +62,9 @@ function parseCode(code) {
 					break;
 				}
 			}
+			// c ends up holding our whole number
 			tree.push(new Decimal(c));
+		// Only push recognized functions
 		} else if(['+','-','*','/',"^"].includes(c)) {
 			tree.push(c);
 		}
@@ -61,13 +73,15 @@ function parseCode(code) {
 }
 
 function parseTree(tree) {
-	//console.log(simplifyTree(tree));
+	// Order of operations: parenthesis (sub-arrays) are evaluated first
 	for(var i = 0; i < tree.length; ++i) {
 		var op = tree[i];
 		if(op instanceof Array) {
 			tree[i] = parseTree(op)[0];
 		}
 	}
+	// Functions will be checked here
+	// Exponent checker
 	for(var i = 0; i < tree.length; ++i) {
 		var op = tree[i];
 		if(typeof(op) == "string" && op == "^") {
@@ -77,6 +91,7 @@ function parseTree(tree) {
 			}
 		}
 	}
+	// Preform multiplication/division
 	for(var i = 0; i < tree.length; ++i) {
 		var op = tree[i];
 		if(typeof(op) == "string" && ['*','/'].includes(op)) {
@@ -91,6 +106,7 @@ function parseTree(tree) {
 			}
 		}
 	}
+	// Finally, addition/subtraction
 	for(var i = 0; i < tree.length; ++i) {
 		var op = tree[i];
 		if(typeof(op) == "string" && ['+','-'].includes(op)) {
@@ -108,6 +124,7 @@ function parseTree(tree) {
 	return tree;
 }
 
+// Ctrl+Enter runs code, like TIO
 document.onkeydown = function(e) {
 	if(e.key == "Enter" && e.ctrlKey) {
 		document.getElementById("run").click();
@@ -118,11 +135,11 @@ function simplifyTree(tree) {
 	var treen = tree.slice();
 	for(var i = 0; i < treen.length; i++) {
 		if(treen[i] instanceof Array) {
-			treen[i] = [1,2];
+			// Recursively simplify sub-arrays
+			treen[i] = simplifyTree(treen[i]);
 		} else if(treen[i] instanceof Decimal) {
+			// Convert decimals to strings
 			treen[i] = treen[i].toFixed();
-		} else {
-			treen[i] = treen[i];
 		}
 	}
 	return treen;
