@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	document.getElementById("run").addEventListener("click", function() {
 		var code = document.getElementById("code").value;
 		var tree = parseCode(code);
-		console.log(tree);
 		var out = parseTree(tree);
 		if(out[0] instanceof Decimal) {
 			out[0] = out[0].toFixed();
@@ -28,10 +27,7 @@ function parseCode(code) {
 				} else if(c2 == ")") {
 					--depth;
 					if(depth == 0) {
-						console.log(tree);
 						tree.push(parseCode(code.substring(charPos+1, cp2)));
-						console.log(parseCode(code.substring(charPos+1, cp2)));
-						console.log(tree);
 						charPos = cp2;
 						--depth;
 						break;
@@ -40,9 +36,8 @@ function parseCode(code) {
 			}
 			if(depth > -1) {
 				tree.push(parseCode(code.substring(charPos+1)));
-				charPos = tree.length;
+				charPos = code.length;
 			}
-			console.log(charPos);
 		} else if(['1','2','3','4','5','6','7','8','9','0','.'].includes(c)) {
 			var decimalEncountered = c=='.';
 			for(var i = charPos+1, cnew = ''; cnew = code.charAt(i); i++) {
@@ -70,7 +65,7 @@ function parseTree(tree) {
 	for(var i = 0; i < tree.length; ++i) {
 		var op = tree[i];
 		if(op instanceof Array) {
-			tree[i] = parseTree(op);
+			tree[i] = parseTree(op)[0];
 		}
 	}
 	for(var i = 0; i < tree.length; ++i) {
@@ -122,18 +117,11 @@ document.onkeydown = function(e) {
 function simplifyTree(tree) {
 	var treen = tree.slice();
 	for(var i = 0; i < treen.length; i++) {
-		console.log(i+": "+treen[i]+" / "+treen);
 		if(treen[i] instanceof Array) {
-			console.log("Recursing");
-			//treen[i] = simplifyTree(treen[i]);
-			console.log(simplifyTree(treen[i]));
 			treen[i] = [1,2];
-			console.log(treen[i]+"<-"+treen)
 		} else if(treen[i] instanceof Decimal) {
-			console.log("Decing");
 			treen[i] = treen[i].toFixed();
 		} else {
-			console.log("Doing nothing");
 			treen[i] = treen[i];
 		}
 	}
