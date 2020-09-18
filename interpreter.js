@@ -67,7 +67,16 @@ function parseCode(code) {
 		// Only push recognized functions
 		} else if(['q'].includes(c)) {
 			tree.push(c);
-		} else if(['+','-','*','/',"^"].includes(c)) {
+		} else if([')'].includes(c)) { // Explicit function closing
+			for(var i = tree.length-2; i >=0; --i) {
+				if(!(['+','-','*','/','^'].includes(tree[i]) || tree[i] instanceof Decimal)) { // Filter out function characters
+					console.log(tree);
+					console.log(tree[i]);
+					tree.push(tree.splice(i+1, tree.length-i+1));
+					break;
+				}
+			}
+		} else if(['+','-','*','/',"^"].includes(c)) { // Basic Operations
 			tree.push(c);
 		}
 	}
