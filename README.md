@@ -25,9 +25,11 @@ Features:
 ❌ Implict array calculations  
 ❌ Strings  
 ❌ Explicit string conversion  
-❌ Input/variables  
+✔ Input  
 ❌ Multiple inputs  
 ❌ Piecewise functions  
+❌ Multiple functions  
+❌ Variables  
 ❌ Summation/Product notation  
 ❓ Calculus  
 ❓ Nested arrays  
