@@ -52,6 +52,9 @@ function parseCode(code, input) {
 			}
 		} else if(c.charCodeAt(0)>=65 && c.charCodeAt(0)<=90) { // Input
 			tree.push(new Decimal(input[c.charCodeAt(0)-65]));
+		} else if(c=='þ') {tree.push(Decimal.acos(-1)) //pi
+		} else if(c=='e') {tree.push(Decimal.exp(1)) //e
+		} else if(c=='Þ') {tree.push(Decimal.acos(-1).times(2)) //tau
 		} else if(['1','2','3','4','5','6','7','8','9','0','.'].includes(c)) {
 			// Note we can only encounter one decimal point
 			var decimalEncountered = c=='.';

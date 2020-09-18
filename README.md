@@ -17,7 +17,7 @@ Features:
 ❌ Implicit multiplication  
 ❌ Extended trigonometric functions  
 ❌ Radians/degrees mode  
-❌ Math constants  
+✔ Math constants  
 ❌ Assorted math functions  
 ❌ Debug function  
 ❌ Arrays  
