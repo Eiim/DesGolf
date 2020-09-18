@@ -8,9 +8,13 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 	// Add run button functionality
 	document.getElementById("run").addEventListener("click", function() {
+		// Get input
+		var input = [];
+		input.push(document.getElementById("input").value);
+		// Get code
 		var code = document.getElementById("code").value;
 		// Turn raw text into an array-based data structure
-		var tree = parseCode(code);
+		var tree = parseCode(code, input);
 		// Parse data structure
 		var out = parseTree(tree);
 		// Should normally just be one Decimal object, but run simplifyTree just in case.
@@ -18,10 +22,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 });
 
-function parseCode(code) {
+function parseCode(code, input) {
 	var tree = [];
 	// Interate over each character in code
-	for (var charPos = 0, c=''; c = code.charAt(charPos); charPos++) { 
+	for (var charPos = 0, c=''; c = code.charAt(charPos); charPos++) { // Numeric Literals
 		if(c == "(") {
 			// Parse over code until we find the close for this paren
 			var depth = 1;
@@ -46,7 +50,8 @@ function parseCode(code) {
 				tree.push(parseCode(code.substring(charPos+1)));
 				charPos = code.length;
 			}
-		// Numberic literals
+		} else if(c.charCodeAt(0)>=65 && c.charCodeAt(0)<=90) { // Input
+			tree.push(new Decimal(input[c.charCodeAt(0)-65]));
 		} else if(['1','2','3','4','5','6','7','8','9','0','.'].includes(c)) {
 			// Note we can only encounter one decimal point
 			var decimalEncountered = c=='.';
@@ -76,7 +81,7 @@ function parseCode(code) {
 					break;
 				}
 			}
-		} else if(['+','-','*','/',"^"].includes(c)) { // Basic Operations
+		} else if(['+','-','*','/',"^"].includes(c)) { // Basic Operations, variables
 			tree.push(c);
 		}
 	}
