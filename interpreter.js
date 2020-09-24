@@ -73,7 +73,7 @@ function parseCode(code, input) {
 			// c ends up holding our whole number
 			tree.push(new Decimal(c));
 		// Only push recognized functions
-		} else if(['q'].includes(c)) {
+		} else if(['q','s','c','t','!'].includes(c)) {
 			tree.push(c);
 		} else if([')'].includes(c)) { // Explicit function closing
 			for(var i = tree.length-2; i >=0; --i) {
@@ -105,6 +105,36 @@ function parseTree(tree) {
 		if(typeof(op) == "string" && op == "q") {
 			if(i+1<tree.length && tree[i+1] instanceof Decimal) {
 				tree.splice(i, 2, tree[i+1].sqrt());
+			}
+		} else if(typeof(op) == "string" && op == "s") {
+			if(i+1<tree.length && tree[i+1] instanceof Decimal) {
+				tree.splice(i, 2, tree[i+1].sin());
+			}
+		} else if(typeof(op) == "string" && op == "c") {
+			if(i+1<tree.length && tree[i+1] instanceof Decimal) {
+				tree.splice(i, 2, tree[i+1].cos());
+			}
+		} else if(typeof(op) == "string" && op == "t") {
+			if(i+1<tree.length && tree[i+1] instanceof Decimal) {
+				tree.splice(i, 2, tree[i+1].tan());
+			}
+		} else if(typeof(op) == "string" && op == "!") {
+			if(i+1<tree.length && tree[i+1] instanceof Decimal) {
+				var n = tree[i+1];
+				if(n.isInt()) {
+					var o = 1;
+					for(var it = 2; it <= n.valueOf(); ++it) {
+						o *= it;
+					}
+					tree.splice(i, 2, new Decimal(o));
+				} else {
+					//TODO: Implement
+					var o = 1;
+					for(var it = 2; it < n.valueOf(); ++it) {
+						o *= it;
+					}
+					tree.splice(i, 2, new Decimal(o));
+				}
 			}
 		}
 	}
