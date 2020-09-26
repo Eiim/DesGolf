@@ -18,11 +18,11 @@ Features:
 ❌ Extended trigonometric functions  
 ❌ Radians/degrees mode  
 ✔ Math constants  
-❌ Assorted math functions  
+🕛 Assorted math functions  
 ❌ Debug function  
-❌ Arrays  
+🕛 Arrays  
 ❌ Array functions  
-❌ Implict array calculations  
+🕛 Implict array calculations  
 ❌ Strings  
 ❌ Explicit string conversion  
 ✔ Input  
