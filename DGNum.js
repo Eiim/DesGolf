@@ -24,6 +24,9 @@ class DGNum {
 	
 	// Creates human-readable version
 	valueOf() {
+		if(this.value.length==1 && this.value[0] instanceof Decimal) {
+			return this.value[0].valueOf();
+		}
 		return this.value.map(x => x.valueOf());
 	}
 	
