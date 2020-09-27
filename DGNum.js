@@ -71,25 +71,13 @@ class DGNum {
 	}
 	
 	// Trig functions
-	sin(n) {
-		if(n.value.length>this.value.length) {
-			return new DGNum(n.value.map((x,i)=>x.sin(i<this.value.length?this.value[i]:0)), true);
-		} else {
-			return new DGNum(this.value.map((x,i)=>x.sin(i<n.value.length?n.value[i]:0)), true);
-		}
+	sin() {
+		return new DGNum(this.value.map(x=>x.sin()), true);
 	}
-	cos(n) {
-		if(n.value.length>this.value.length) {
-			return new DGNum(n.value.map((x,i)=>x.cos(i<this.value.length?this.value[i]:0)), true);
-		} else {
-			return new DGNum(this.value.map((x,i)=>x.cos(i<n.value.length?n.value[i]:0)), true);
-		}
+	cos() {
+		return new DGNum(this.value.map(x=>x.cos()), true);
 	}
-	tan(n) {
-		if(n.value.length>this.value.length) {
-			return new DGNum(n.value.map((x,i)=>x.tan(i<this.value.length?this.value[i]:0)), true);
-		} else {
-			return new DGNum(this.value.map((x,i)=>x.tan(i<n.value.length?n.value[i]:0)), true);
-		}
+	tan() {
+		return new DGNum(this.value.map(x=>x.tan()), true);
 	}
 }
