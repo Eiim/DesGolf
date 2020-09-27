@@ -20,13 +20,13 @@ Features:
 ✔ Math constants  
 🕛 Assorted math functions  
 ❌ Debug function  
-🕛 Arrays  
+❌ Arrays  
 ❌ Array functions  
 🕛 Implict array calculations  
 ❌ Strings  
 ❌ Explicit string conversion  
 ✔ Input  
-❌ Multiple inputs  
+✔ Multiple inputs  
 ❌ Piecewise functions  
 ❌ Multiple functions  
 ❌ Variables  

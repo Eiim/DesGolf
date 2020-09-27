@@ -10,7 +10,9 @@ document.addEventListener("DOMContentLoaded", function() {
 	document.getElementById("run").addEventListener("click", function() {
 		// Get input
 		var input = [];
-		input.push(document.getElementById("input").value);
+		for(inp of document.getElementsByClassName("inputTD")) {
+			input.push(inp.children[0].value);
+		}
 		// Get code
 		var code = document.getElementById("code").value;
 		// Turn raw text into an array-based data structure
@@ -19,6 +21,34 @@ document.addEventListener("DOMContentLoaded", function() {
 		var out = parseTree(tree);
 		// Should normally just be one DGNum object, but run simplifyTree just in case.
 		document.getElementById("output").value = simplifyTree(out);
+	});
+	// More inputs functionality
+	document.getElementById("inPlus").addEventListener("click", function() {
+		var t = document.getElementById("inputTab").children[0];
+		if(t.childElementCount < 26) {
+			var n = t.childElementCount+1;
+			var r = t.insertRow(-1);
+			
+			ld = r.insertCell(0);
+			l = document.createElement("label");
+			l.setAttribute("for","input"+n);
+			l.textContent = n;
+			ld.appendChild(l);
+			
+			id = r.insertCell(1);
+			id.setAttribute("class","inputTD");
+			i = document.createElement("input");
+			i.setAttribute("type","text");
+			i.setAttribute("id","input"+n);
+			id.appendChild(i);
+		}
+	});
+	// Less inputs functionality
+	document.getElementById("inMinus").addEventListener("click", function() {
+		var t = document.getElementById("inputTab").children[0];
+		if(t.childElementCount > 1) {
+			t.deleteRow(-1);
+		}
 	});
 });
 

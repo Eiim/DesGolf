@@ -37,6 +37,21 @@ p {
 	font-size: 32pt;
 	font-family: 'Courier Prime', monospace;
 }
+.inputTD {
+	width: 100%
+}
+.inputButton {
+	width: 25pt;
+	height: 25pt;
+	padding-top: 2pt;
+	font-size: 16pt;
+	font-family: 'Courier Prime', monospace;
+	font-weight: bold;
+	background-color: #C0D6CD;
+	color: #004427;
+	border: 1pt solid #509C7B;
+	border-radius: 5pt;
+}
 label {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 18pt;

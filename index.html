@@ -30,8 +30,17 @@
 			<label for="code">Code:</label><br>
 			<input type="text" id="code" name="code">
 			<br>
-			<label for="input">Input:</label><br>
-			<input type="text" id="input" name="input">
+			<table><tr>
+				<td><label for="inputTab">Input:</label></td>
+				<td><button class="inputButton" id="inMinus">-</button></td>
+				<td><button class="inputButton" id="inPlus">+</button></td>
+			</tr></table>
+			<table id="inputTab">
+				<tr>
+					<td><label for="input1">1</label><br></td>
+					<td class="inputTD"><input type="text" id="input1"></td>
+				</tr>
+			</table>
 			<br>
 			<label for="output">Output:</label><br>
 			<input type="text" id="output" name="output" disabled=true>
