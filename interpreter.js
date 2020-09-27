@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		var tree = parseCode(code, input);
 		// Parse data structure
 		var out = parseTree(tree);
-		// Should normally just be one Decimal object, but run simplifyTree just in case.
+		// Should normally just be one DGNum object, but run simplifyTree just in case.
 		document.getElementById("output").value = simplifyTree(out);
 	});
 });
@@ -51,10 +51,10 @@ function parseCode(code, input) {
 				charPos = code.length;
 			}
 		} else if(c.charCodeAt(0)>=65 && c.charCodeAt(0)<=90) { // Input
-			tree.push(new Decimal(input[c.charCodeAt(0)-65]));
-		} else if(c=='þ') {tree.push(Decimal.acos(-1)) //pi
-		} else if(c=='e') {tree.push(Decimal.exp(1)) //e
-		} else if(c=='Þ') {tree.push(Decimal.acos(-1).times(2)) //tau
+			tree.push(new DGNum(input[c.charCodeAt(0)-65]));
+		} else if(c=='þ') {tree.push(new DGNum(Decimal.acos(-1))) //pi
+		} else if(c=='e') {tree.push(new DGNum(Decimal.exp(1))) //e
+		} else if(c=='Þ') {tree.push(new DGNum(Decimal.acos(-1).times(2))) //tau
 		} else if(['1','2','3','4','5','6','7','8','9','0','.'].includes(c)) {
 			// Note we can only encounter one decimal point
 			var decimalEncountered = c=='.';
@@ -71,15 +71,13 @@ function parseCode(code, input) {
 				}
 			}
 			// c ends up holding our whole number
-			tree.push(new Decimal(c));
+			tree.push(new DGNum(c));
 		// Only push recognized functions
 		} else if(['q','s','c','t','!'].includes(c)) {
 			tree.push(c);
 		} else if([')'].includes(c)) { // Explicit function closing
 			for(var i = tree.length-2; i >=0; --i) {
-				if(!(['+','-','*','/','^'].includes(tree[i]) || tree[i] instanceof Decimal)) { // Filter out function characters
-					console.log(tree);
-					console.log(tree[i]);
+				if(!(['+','-','*','/','^'].includes(tree[i]) || tree[i] instanceof DGNum)) { // Filter out function characters
 					tree.push(tree.splice(i+1, tree.length-i+1));
 					break;
 				}
@@ -105,42 +103,28 @@ function parseTree(tree) {
 		if(typeof(op) == "string") {
 			switch (op) {
 				case "q":
-					if(i+1<tree.length && tree[i+1] instanceof Decimal) {
+					if(tree[i+1] instanceof DGNum) {
 						tree.splice(i, 2, tree[i+1].sqrt());
 					}
 					break;
 				case "s":
-					if(i+1<tree.length && tree[i+1] instanceof Decimal) {
+					if(tree[i+1] instanceof DGNum) {
 						tree.splice(i, 2, tree[i+1].sin());
 					}
 					break;
 				case "c":
-					if(i+1<tree.length && tree[i+1] instanceof Decimal) {
+					if(tree[i+1] instanceof DGNum) {
 						tree.splice(i, 2, tree[i+1].cos());
 					}
 					break;
 				case "t":
-					if(i+1<tree.length && tree[i+1] instanceof Decimal) {
+					if(tree[i+1] instanceof DGNum) {
 						tree.splice(i, 2, tree[i+1].tan());
 					}
 					break;
 				case "!":
-					if(i+1<tree.length && tree[i+1] instanceof Decimal) {
-						var n = tree[i+1];
-						if(n.isInt()) {
-							var o = 1;
-							for(var it = 2; it <= n.valueOf(); ++it) {
-								o *= it;
-							}
-							tree.splice(i, 2, new Decimal(o));
-						} else {
-							//TODO: Implement
-							var o = 1;
-							for(var it = 2; it < n.valueOf(); ++it) {
-								o *= it;
-							}
-							tree.splice(i, 2, new Decimal(o));
-						}
+					if(tree[i+1] instanceof DGNum) {
+						tree.splice(i, 2, tree[i+1].powGam());
 					}
 				break;
 			}
@@ -150,7 +134,7 @@ function parseTree(tree) {
 	for(var i = 0; i < tree.length; ++i) {
 		var op = tree[i];
 		if(typeof(op) == "string" && op == "^") {
-			if(i>0 && i+1<tree.length && tree[i-1] instanceof Decimal && tree[i+1] instanceof Decimal) {
+			if(i>0 && i+1<tree.length && tree[i-1] instanceof DGNum && tree[i+1] instanceof DGNum) {
 				tree.splice(i-1, 3, tree[i-1].pow(tree[i+1]));
 				--i;
 			}
@@ -160,7 +144,7 @@ function parseTree(tree) {
 	for(var i = 0; i < tree.length; ++i) {
 		var op = tree[i];
 		if(typeof(op) == "string" && ['*','/'].includes(op)) {
-			if(i>0 && i+1<tree.length && tree[i-1] instanceof Decimal && tree[i+1] instanceof Decimal) {
+			if(i>0 && i+1<tree.length && tree[i-1] instanceof DGNum && tree[i+1] instanceof DGNum) {
 				switch(op) {
 					case '*':
 						tree.splice(i-1, 3, tree[i-1].times(tree[i+1]));break;
@@ -175,10 +159,10 @@ function parseTree(tree) {
 	for(var i = 0; i < tree.length; ++i) {
 		var op = tree[i];
 		if(typeof(op) == "string" && ['+','-'].includes(op)) {
-			if(i>0 && i+1<tree.length && tree[i-1] instanceof Decimal && tree[i+1] instanceof Decimal) {
+			if(i>0 && i+1<tree.length && tree[i-1] instanceof DGNum && tree[i+1] instanceof DGNum) {
 				switch(op) {
 					case '+':
-						tree.splice(i-1, 3, tree[i-1].add(tree[i+1]));break;
+						tree.splice(i-1, 3, tree[i-1].plus(tree[i+1]));break;
 					case '-':
 						tree.splice(i-1, 3, tree[i-1].minus(tree[i+1]));break;
 				}
@@ -202,9 +186,9 @@ function simplifyTree(tree) {
 		if(treen[i] instanceof Array) {
 			// Recursively simplify sub-arrays
 			treen[i] = simplifyTree(treen[i]);
-		} else if(treen[i] instanceof Decimal) {
+		} else if(treen[i] instanceof DGNum) {
 			// Convert decimals to strings
-			treen[i] = treen[i].toFixed();
+			treen[i] = treen[i].valueOf();
 		}
 	}
 	return treen;
