@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		// Parse data structure
 		var out = parseTree(tree);
 		// Should normally just be one DGNum object, but run simplifyTree just in case.
-		console.log(simplifyTree(out));
 		document.getElementById("output").value = simplifyTree(out);
 	});
 });
@@ -79,8 +78,6 @@ function parseCode(code, input) {
 		} else if([')'].includes(c)) { // Explicit function closing
 			for(var i = tree.length-2; i >=0; --i) {
 				if(!(['+','-','*','/','^'].includes(tree[i]) || tree[i] instanceof DGNum)) { // Filter out function characters
-					console.log(tree);
-					console.log(tree[i]);
 					tree.push(tree.splice(i+1, tree.length-i+1));
 					break;
 				}
@@ -106,27 +103,27 @@ function parseTree(tree) {
 		if(typeof(op) == "string") {
 			switch (op) {
 				case "q":
-					if(i+1<tree.length && tree[i+1] instanceof DGNum) {
+					if(tree[i+1] instanceof DGNum) {
 						tree.splice(i, 2, tree[i+1].sqrt());
 					}
 					break;
 				case "s":
-					if(i+1<tree.length && tree[i+1] instanceof DGNum) {
+					if(tree[i+1] instanceof DGNum) {
 						tree.splice(i, 2, tree[i+1].sin());
 					}
 					break;
 				case "c":
-					if(i+1<tree.length && tree[i+1] instanceof DGNum) {
+					if(tree[i+1] instanceof DGNum) {
 						tree.splice(i, 2, tree[i+1].cos());
 					}
 					break;
 				case "t":
-					if(i+1<tree.length && tree[i+1] instanceof DGNum) {
+					if(tree[i+1] instanceof DGNum) {
 						tree.splice(i, 2, tree[i+1].tan());
 					}
 					break;
 				case "!":
-					if(i+1<tree.length && tree[i+1] instanceof DGNum) {
+					if(tree[i+1] instanceof DGNum) {
 						var n = tree[i+1];
 						if(n.isInt()) {
 							var o = 1;

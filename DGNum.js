@@ -4,7 +4,7 @@ class DGNum {
 		if(direct) {
 			this.value = baseNum;
 		}
-		if(typeof baseNum == "number") {
+		if(typeof baseNum == "number" || typeof baseNum == "string") {
 			this.value = [new Decimal(baseNum)];
 		} else if(baseNum instanceof Array) {
 			this.value = [];
