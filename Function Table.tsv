@@ -32,7 +32,7 @@ Covariance	1	cov(x_1)	£
 Correlation Coefficient	2	corr(x_1,x_2)	r
 Number of Combinations	2	nCr(n,r)	y
 Number of Permutations	2	nPr(n,r)	z
-Factorial/Gamma Function	1	n!	!
+Factorial/Gamma n+1	1	n!	!
 Join lists	2	join(x_1, x_2)	;
 Sort	1	sort(x_1)	w
 Shuffle	1	shuffle(x_1)	¡

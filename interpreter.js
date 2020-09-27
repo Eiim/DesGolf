@@ -124,21 +124,7 @@ function parseTree(tree) {
 					break;
 				case "!":
 					if(tree[i+1] instanceof DGNum) {
-						var n = tree[i+1];
-						if(n.isInt()) {
-							var o = 1;
-							for(var it = 2; it <= n.valueOf(); ++it) {
-								o *= it;
-							}
-							tree.splice(i, 2, new DGNum(o));
-						} else {
-							//TODO: Implement
-							var o = 1;
-							for(var it = 2; it < n.valueOf(); ++it) {
-								o *= it;
-							}
-							tree.splice(i, 2, new DGNum(o));
-						}
+						tree.splice(i, 2, tree[i+1].powGam());
 					}
 				break;
 			}
