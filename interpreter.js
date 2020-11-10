@@ -87,68 +87,7 @@ function parseTree(tree) {
 	for(var i = 0; i < tree.length; ++i) {
 		var op = tree[i];
 		if(typeof(op) == "string") {
-			switch (op) {
-				case "q":
-					if(tree[i+1] instanceof DGNum) {
-						tree.splice(i, 2, tree[i+1].sqrt());
-					}
-					break;
-				case "s":
-					if(tree[i+1] instanceof DGNum) {
-						tree.splice(i, 2, tree[i+1].sin());
-					}
-					break;
-				case "c":
-					if(tree[i+1] instanceof DGNum) {
-						tree.splice(i, 2, tree[i+1].cos());
-					}
-					break;
-				case "t":
-					if(tree[i+1] instanceof DGNum) {
-						tree.splice(i, 2, tree[i+1].tan());
-					}
-					break;
-				case "à":
-					if(tree[i+1] instanceof DGNum) {
-						tree.splice(i, 2, new DGNum(1).div(tree[i+1].sin()));
-					}
-					break;
-				case "á":
-					if(tree[i+1] instanceof DGNum) {
-						tree.splice(i, 2, new DGNum(1).div(tree[i+1].cos()));
-					}
-					break;
-				case "â":
-					if(tree[i+1] instanceof DGNum) {
-						tree.splice(i, 2, new DGNum(1).div(tree[i+1].tan()));
-					}
-					break;
-				case "!":
-					if(tree[i+1] instanceof DGNum) {
-						tree.splice(i, 2, tree[i+1].powGam());
-					}
-				case "h":
-					if(tree[i+1] instanceof DGNum) {
-						tree.splice(i, 2, tree[i+1].ln());
-					}
-				case "m":
-					if(tree[i+1] instanceof DGNum) {
-						tree.splice(i, 2, tree[i+1].log10());
-					}
-				case "p":
-					if(tree[i+1] instanceof DGNum) {
-						tree.splice(i, 2, tree[i+1].isPrime());
-					}
-				case "?":
-					if(tree[i+1] instanceof DGNum) {
-						tree.splice(i, 2, tree[i+1].sign());
-					}
-				case "±":
-					if(tree[i+1] instanceof DGNum) {
-						tree.splice(i, 2, tree[i+1].toBool());
-					}
-				break;
-			}
+			tree = parseFunc(tree, op, i);
 		}
 	}
 	// Exponent checker
