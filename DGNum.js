@@ -69,6 +69,15 @@ class DGNum {
 	sqrt() {
 		return new DGNum(this.value.map(x=>x.sqrt()), true);
 	}
+	log10() {
+		return new DGNum(this.value.map(x=>{
+			if(x instanceof DGNum) return x.log10();
+			else return Decimal.log10(x);
+		}), true);
+	}
+	ln() {
+		return new DGNum(this.value.map(x=>x.ln()), true);
+	}
 	powGam() {
 		return new DGNum(this.value.map(x=>{
 			if(x instanceof Decimal) {
@@ -83,6 +92,25 @@ class DGNum {
 				}
 			} else if(x instanceof DGNum) {
 				return x.powGam();
+			}
+		}));
+	}
+	isPrime() {
+		return new DGNum(this.value.map(x=>{
+			if(x instanceof Decimal) {
+				if(x.isInt()) {
+					if(x.lt(2)) return 0;
+					if(x.eq(2) || x.eq(3)) return 1;
+					if(x.mod(2).eq(0) || x.mod(3).eq(0)) return 0;
+					for(var i = 5; x.sqrt().gte(i); i += 6) {
+						if(x.mod(i).eq(0) || x.mod(i+2).eq(0)) return 0;
+					}
+					return 1;
+				} else {
+					return 0;
+				}
+			} else if(x instanceof DGNum) {
+				return x.isPrime();
 			}
 		}));
 	}

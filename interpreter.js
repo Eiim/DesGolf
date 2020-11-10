@@ -1,3 +1,5 @@
+const funcList = ['q','s','c','t','!','h','m','p'];
+
 document.addEventListener("DOMContentLoaded", function() {
 	// Add special character button functionality
 	document.getElementById("special-chars").childNodes.forEach(e => {
@@ -103,7 +105,7 @@ function parseCode(code, input) {
 			// c ends up holding our whole number
 			tree.push(new DGNum(c));
 		// Only push recognized functions
-		} else if(['q','s','c','t','!'].includes(c)) {
+		} else if(funcList.includes(c)) {
 			tree.push(c);
 		} else if([')'].includes(c)) { // Explicit function closing
 			for(var i = tree.length-2; i >=0; --i) {
@@ -155,6 +157,18 @@ function parseTree(tree) {
 				case "!":
 					if(tree[i+1] instanceof DGNum) {
 						tree.splice(i, 2, tree[i+1].powGam());
+					}
+				case "h":
+					if(tree[i+1] instanceof DGNum) {
+						tree.splice(i, 2, tree[i+1].ln());
+					}
+				case "m":
+					if(tree[i+1] instanceof DGNum) {
+						tree.splice(i, 2, tree[i+1].log10());
+					}
+				case "p":
+					if(tree[i+1] instanceof DGNum) {
+						tree.splice(i, 2, tree[i+1].isPrime());
 					}
 				break;
 			}
