@@ -19,7 +19,7 @@ Features:
 ❌ Radians/degrees mode  
 ✔ Math constants  
 🕛 Assorted math functions  
-❌ Debug function  
+✔ Debug function  
 ❌ Arrays  
 ❌ Array functions  
 🕛 Implict array calculations  

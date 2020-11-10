@@ -95,6 +95,24 @@ class DGNum {
 			}
 		}));
 	}
+	toBool() {
+		return new DGNum(this.value.map(x=>{
+			if(x instanceof Decimal) {
+				return x.gt(0) ? 1 : 0;
+			} else if(x instanceof DGNum) {
+				return x.toBool();
+			}
+		}));
+	}
+	sign() {
+		return new DGNum(this.value.map(x=>{
+			if(x instanceof Decimal) {
+				return Decimal.sign(x);
+			} else if(x instanceof DGNum) {
+				return x.sign();
+			}
+		}));
+	}
 	isPrime() {
 		return new DGNum(this.value.map(x=>{
 			if(x instanceof Decimal) {
