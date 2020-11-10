@@ -1,4 +1,4 @@
-const funcList = ['q','s','c','t','!','h','m','p','¿','?','±'];
+const funcList = ['q','s','c','t','!','h','m','p','¿','?','±','à','á','â'];
 
 function parseCode(code, input) {
 	var tree = [];
@@ -106,6 +106,21 @@ function parseTree(tree) {
 				case "t":
 					if(tree[i+1] instanceof DGNum) {
 						tree.splice(i, 2, tree[i+1].tan());
+					}
+					break;
+				case "à":
+					if(tree[i+1] instanceof DGNum) {
+						tree.splice(i, 2, new DGNum(1).div(tree[i+1].sin()));
+					}
+					break;
+				case "á":
+					if(tree[i+1] instanceof DGNum) {
+						tree.splice(i, 2, new DGNum(1).div(tree[i+1].cos()));
+					}
+					break;
+				case "â":
+					if(tree[i+1] instanceof DGNum) {
+						tree.splice(i, 2, new DGNum(1).div(tree[i+1].tan()));
 					}
 					break;
 				case "!":

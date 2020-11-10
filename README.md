@@ -13,9 +13,8 @@ Features:
 ✔ Arbitrary precision numbers via Decimal.js  
 ✔ 4-function calculations respecting order of operations  
 ✔ Full PEMDAS  
-🕛 Function support  
-❌ Implicit multiplication  
-❌ Extended trigonometric functions  
+🕛 Function support    
+🕛 Extended trigonometric functions  
 ❌ Radians/degrees mode  
 ✔ Math constants  
 🕛 Assorted math functions  
@@ -30,7 +29,9 @@ Features:
 ❌ Piecewise functions  
 ❌ Multiple functions  
 ❌ Variables  
+❌ Function definitions  
 ❌ Summation/Product notation  
+❌ Nested arrays  
+❓ Implicit multiplication  
 ❓ Calculus  
-❓ Nested arrays  
 ❓ Meaningful 0-length functions  
